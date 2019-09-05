@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+  </head>
+  <style>
+	*{
+	font-family: 'Open Sans', sans-serif;
+	}
+    .boxes{
+      margin: 10px;
+      padding: 5px;
+    }
+  </style>
+  <body>
+	<div>
+		Loading all the books ...
+	</div>
+      <div id="app">
+      </div>
+  </body>
+  <script>
+    function createXMLHttpRequestObject(){
+      if(window.XMLHttpRequest){
+        xmlHTTPRequest = new XMLHttpRequest();
+      }
+      else{
+        xmlHTTPRequest = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      return xmlHTTPRequest;
+    }
+    let xmlObj = createXMLHttpRequestObject()
+    if (xmlObj != null){
+      xmlObj.open("GET", "https://192.168.99.101/api/v1/books", true)
+	//https://jsonplaceholder.typicode.com/users
+//	xmlObj.open("GET", "https://jsonplaceholder.typicode.com/users", true)
+      xmlObj.onreadystatechange = processResponse;
+      xmlObj.send(null)
+    }
+    else{
+      console.log("There was an error getting the object.")
+    }
+    function processResponse(){
+      if (xmlObj.status == 200 && xmlObj.readyState == 4){
+        console.log("Got the response successfully")
+        response = xmlObj.responseText
+        jsonObj = JSON.parse(response)
+        let app = document.getElementById("app")
+        for (i=0; i<jsonObj.length; i++){
+          let d = document.createElement("div")
+          d.classList.add("boxes")
+          d.innerHTML=jsonObj[i].title
+          app.appendChild(d) 
+        }
+      }
+      else{
+        console.log("There was an issue getting the response.")
+      }
+    }
+  </script>
+</html>

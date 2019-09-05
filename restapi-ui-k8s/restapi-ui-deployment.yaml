@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restapi-ui-deployment
+  labels:
+    app: restapi-ui
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: restapi-ui
+  template:
+    metadata:
+      labels:
+        app: restapi-ui
+    spec:
+      containers:
+      - name: ui 
+        image: ui:1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restapi-deployment
+  labels:
+    app: restapi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: restapi
+  template:
+    metadata:
+      labels:
+        app: restapi
+    spec:
+      containers:
+      - name: restapi
+        image: restapi:1.0
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: APIPATH
+          value: "/api/v1/books"
+        - name: DBHOST
+          value: "mysql:3306"
+        - name: DBPASS
+          value: "vivek$ingh"
+        ports:
+        - containerPort: 8080

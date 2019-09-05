@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: restapi-ui-service
+spec:
+  selector:
+    app: restapi-ui
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 80
