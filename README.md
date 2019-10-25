@@ -1,6 +1,8 @@
 # kubernetes101
 This repo contains a sample app that have some three components and can be deployed on kubernetes natively using some kubernetes resources. This repo is a part of a tutorial that I have written on [medium](https://medium.com/@viveksinghggits/hello-world-of-kubernetes-part-1-d1153fc2fc37).
 
+Please clone the repository to go through the commands that are given below.
+
 # run-mysql
 To run mysql you wil have to run below commands, they are going to create a PV, PVC and deployment that will actually host the mysql, `cd` into `run-mysql` and run 
 ```
