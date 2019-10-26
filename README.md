@@ -3,6 +3,11 @@ This repo contains a sample app that have some three components and can be deplo
 
 Please clone the repository to go through the commands that are given below.
 
+# Create a secret that will be used as password in the myql deployment 
+```
+kubectl create secret generic mysql-password --from-literal password='vivek$ingh'
+```
+
 # run-mysql
 To run mysql you wil have to run below commands, they are going to create a PV, PVC and deployment that will actually host the mysql, `cd` into `run-mysql` and run 
 ```
@@ -31,7 +36,11 @@ To build the docker images that will be used by the deployment manifest, cd into
 ```
 docker build -t restapi:1.0 .
 ```
-
+# Create the configmap that will be used by the restapi app to talk to talk to the mysql database
+Once we have the docker image for restapi app crated we will have to create configmaps so that we will not have to hard code the config values in the manifest itself, we can read these configuration values from the configmaps itself.
+```
+kubectl create configmap restapi-config --fron-literal APIPATH=/api/v1/books --from-literal DBHOST=mysql:3306
+```
 
 # restapi-k8s
 This dir contains all manifests that are required deploy the restapi app on the kubernetes cluster. If you want to deploy all these apps on separate namespace 
@@ -55,21 +64,8 @@ To make the ingress work in minikube you might have to run below command
 ```
 minikube addons enable ingress
 ```
+In this branch we are not going to deploy the UI component because the main motive was to get to know how secrets and configmaps can be used to store env variables that we are going to provide to the applications. 
 
-# restapi-ui
-To to create the build of restapi ui code `cd` to the `restapi-ui` dir and run below command 
-```
-docker build -t ui:1.0 .
-```
-above command will create the docker image of the UI component and that can be used to deploy the UI component on the kubernetes.
-
-# restapi-ui-k8s
-To deploy the UI image that you have already created in the previous step you will have to run below command in order to create deployment for UI, service and ingress
-```
-kubectl create -f restapi-ui-deployment.yaml -n <ns-name>
-kubectl create -f restapi-ui-service.yaml -n <ns-name>
-kubectl create -f restapi-ui-ingress.yaml -n <ns-name>
-```
 
 # Note
 To actually get to know why are we creating deployment, services and ingress you can follow a post that is [here](https://medium.com/@viveksinghggits/hello-world-of-kubernetes-part-1-d1153fc2fc37).

@@ -20,10 +20,19 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: APIPATH
-          value: "/api/v1/books"
+          valueFrom:
+            configMapKeyRef:
+              name: restapi-config
+              key: APIPATH
         - name: DBHOST
-          value: "mysql:3306"
+          valueFrom:
+            configMapKeyRef:
+              name: restapi-config
+              key: DBHOST
         - name: DBPASS
-          value: "vivek$ingh"
+          valueFrom:
+            secretKeyRef:
+              name: mysql-password
+              key: password
         ports:
         - containerPort: 8080
