@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: ui 
-        image: ui:1.0
+        image: viveksinghggits/ui:prep
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80

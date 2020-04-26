@@ -31,9 +31,7 @@
     }
     let xmlObj = createXMLHttpRequestObject()
     if (xmlObj != null){
-      xmlObj.open("GET", "https://192.168.99.101/api/v1/books", true)
-	//https://jsonplaceholder.typicode.com/users
-//	xmlObj.open("GET", "https://jsonplaceholder.typicode.com/users", true)
+      xmlObj.open("GET", "http://192.168.39.23/api/v1/books", true)
       xmlObj.onreadystatechange = processResponse;
       xmlObj.send(null)
     }
@@ -50,7 +48,7 @@
           let d = document.createElement("div")
           d.classList.add("boxes")
           d.innerHTML=jsonObj[i].title
-          app.appendChild(d) 
+          app.appendChild(d)
         }
       }
       else{

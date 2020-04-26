@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: restapi
-        image: restapi:1.0
+        image: viveksinghggits/restapi:prep
         imagePullPolicy: IfNotPresent
         env:
         - name: APIPATH
